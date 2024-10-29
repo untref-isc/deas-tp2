@@ -1,5 +1,15 @@
-﻿using Repository;
+﻿using Microsoft.Extensions.Logging;
+using Model;
+using Repository;
 using Service;
+using Service.Comando;
+using Service.Services;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading;
 
 namespace App
 {
@@ -7,25 +17,40 @@ namespace App
     {
         static void Main(string[] args)
         {
-            _ = ShowAsync();
+            try
+            {
+                _ = ShowAsync();
+            }
+            catch (Exception ex) {
+                Console.Write($"Error: {ex.Message}%");
+            }
         }
 
         private static async Task ShowAsync()
         {
-            try
-            {
-                await new Data().LoadAsync();
-                DoSomethingResult result = await new DoSomething().CalculateAsync();
+            LectoraArchivos lector = new LectoraArchivos();
+            string directorio = @"c:\Ej\"; // Cambia esta ruta por la correcta
+            
+            var files = FileScannerService.EscanearDirectorio(directorio); //Usar para estimar
+            // Agregar observadores
+            lector.AnadirObservador(new UI());
+            lector.AnadirObservador(new Logger(100));
 
-                foreach (string item in result.List)
-                {
-                    Console.WriteLine(item);
-                }
-            }
-            catch (Exception ex)
+                        
+            string[] archivos = Directory.GetFiles(directorio);
+
+            // Leer y procesar cada archivo en el directorio
+            Console.WriteLine($"volumen total  {files.TamanoTotal}, cantidad {files.TotalArchivos}");
+            foreach (var nombreArchivo in archivos)
             {
-                Console.WriteLine(ex.Message);
+                Archivo archivo = new Archivo(nombreArchivo);
+                IComando comando = new ComandoLeerArchivo(archivo, lector);
+                lector.EjecutarComando(comando);
             }
+
+            // Imprimir el historial de duraciones al final
+            lector.ImprimirHistorial();
         }
     }
 }
+
