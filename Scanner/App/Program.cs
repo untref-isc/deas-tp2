@@ -40,7 +40,7 @@ namespace App
             string[] archivos = Directory.GetFiles(directorio);
 
             // Leer y procesar cada archivo en el directorio
-            Console.WriteLine($"volumen total  {files.duracionTotal}, cantidad {files.totalArchivos}");
+            Console.WriteLine($"Duracion total  {files.duracionTotal}, cantidad de archivos {files.totalArchivos}");
             foreach (var nombreArchivo in archivos)
             {
                 Archivo archivo = new Archivo(nombreArchivo);
