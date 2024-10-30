@@ -31,7 +31,7 @@ namespace Service.Services
                 duracinTotal += estimador.ObtenerDuracionEstimada((archivo.Length >= int.MaxValue)?int.MaxValue-1:(int)archivo.Length);
                 totalArchivos++;
             }
-
+            if (duracinTotal <=0) Console.WriteLine($"No hay datos suficientes para hacer una estimacion" );
             return (totalArchivos, duracinTotal);
         }
 
