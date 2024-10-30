@@ -30,18 +30,34 @@ namespace Repository
         }
         public Zocalo obtenerZocaloCercano(int tamano)
         {
+            Zocalo coincidenciaExacta = obtenerZocalo(tamano);
+            if (coincidenciaExacta != null) return coincidenciaExacta;
+
             Zocalo masCercanoSuperior = historial
                 .Where(z => z.MinTamano >= tamano)
                 .OrderBy(z => z.MinTamano)
                 .FirstOrDefault();
-           
-            if (masCercanoSuperior == null) 
-                return historial.Where(z => z.MaxTamano <= tamano)
+
+            Zocalo masCercanoIngferior =  historial.Where(z => z.MaxTamano <= tamano)
                     .OrderByDescending(z => z.MaxTamano)
                     .FirstOrDefault();
 
-            return masCercanoSuperior;
+            if (masCercanoIngferior != null && masCercanoSuperior != null)
+                return new Zocalo(masCercanoIngferior.MaxTamano,
+                    masCercanoSuperior.MinTamano,
+                    promediar(masCercanoIngferior.PromedioDuracion, masCercanoSuperior.PromedioDuracion),
+                    promediar(masCercanoIngferior.PromedioTamañoArchivos,
+                    masCercanoSuperior.PromedioTamañoArchivos),
+                    1);
 
+            if (masCercanoSuperior != null) return masCercanoSuperior;
+
+            return masCercanoIngferior;
+
+        }
+        private double promediar(double valor1, double valor2)
+        {
+            return (valor1 + valor2) / 2;
         }
 
         // Método para imprimir el historial
