@@ -12,7 +12,11 @@
 
         public Zocalo(int minTamano, int maxTamano)
         {
-            new Zocalo(minTamano, maxTamano, 0, 0, 0);
+            MinTamano = minTamano;
+            MaxTamano = maxTamano;
+            PromedioDuracion = 0;
+            PromedioTamañoArchivos = 0;
+            CantidadArchivos = 0;
         }
         public Zocalo(int minTamano, int maxTamano, double promedioDuracion, double promedioTamañoArchivos, int cantidadArchivos)
         {

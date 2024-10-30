@@ -29,12 +29,7 @@ namespace Service
             comando.Ejecutar();
         }
 
-        public int EstimarDuracion(int tamano)
-        {
-            return estimador.ObtenerDuracionEstimada(tamano);
-        }
-
-        // Método para registrar la duración en el estimador
+         // Método para registrar la duración en el estimador
         public void RegistrarDuracion(string nombreArchivo, int tamano, int duracion)
         {
             estimador.RegistrarDuracion(nombreArchivo, tamano, duracion);

@@ -40,12 +40,17 @@ namespace Service
 
         private Zocalo ObtenerZocaloPorTamano(int tamano)
         {       
+            return historialRepository.obtenerZocalo(tamano);
+        }
+
+        private Zocalo ObtenerZocaloCercanoPorTamano(int tamano)
+        {
             return historialRepository.obtenerZocaloCercano(tamano);
         }
 
         public int ObtenerDuracionEstimada(int tamano)
         {
-            Zocalo zocalo = ObtenerZocaloPorTamano(tamano);
+            Zocalo zocalo = ObtenerZocaloCercanoPorTamano(tamano);
             if (zocalo != null && zocalo.CantidadArchivos > 0)
             {
                 return ((int)zocalo.PromedioDuracion);

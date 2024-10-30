@@ -10,11 +10,11 @@ namespace Repository
     public class HistorialRepository
     {
         private List<Zocalo> historial = new List<Zocalo>() {
-          new (0, 100,5.461, 15.76, 1),
+          new (0, 100,5.461, 15.76, 1)/*,
           new (100, 200,4, 140, 1),
           new (800, 900,2, 884, 1),
           new (1700, 1800,5, 1769, 1),
-          new (2600, 2700,5, 2653, 1)
+          new (2600, 2700,5, 2653, 1)*/
 
         };
 
