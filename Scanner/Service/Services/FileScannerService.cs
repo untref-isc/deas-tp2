@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,17 +9,17 @@ namespace Service.Services
 {
     public class FileScannerService
     {
-
         // Método que recibe un path y retorna el volumen (cantidad de archivos) y el tamaño total
-        static public (int TotalArchivos, long TamanoTotal) EscanearDirectorio(string path)
+        static public (int totalArchivos, long duracionTotal) EstimacionejecucionRutaDirectorio(string path)
         {
+            var estimador = new EstimadorDuracion(HistorialRepositoryFactory.ObtenerHistorialRepository());
             if (!Directory.Exists(path))
             {
                 throw new DirectoryNotFoundException($"El directorio '{path}' no existe.");
             }
 
             int totalArchivos = 0;
-            long tamanoTotal = 0;
+            long duracinTotal = 0;
 
             // Escanea el directorio incluyendo los subdirectorios
             DirectoryInfo directorioInfo = new DirectoryInfo(path);
@@ -27,11 +28,11 @@ namespace Service.Services
             // Cuenta archivos y suma tamaño
             foreach (var archivo in archivos)
             {
+                duracinTotal += estimador.ObtenerDuracionEstimada((archivo.Length >= int.MaxValue)?int.MaxValue-1:(int)archivo.Length);
                 totalArchivos++;
-                tamanoTotal += archivo.Length;
             }
 
-            return (totalArchivos, tamanoTotal);
+            return (totalArchivos, duracinTotal);
         }
 
         // Método recursivo para obtener todos los archivos incluyendo subdirectorios

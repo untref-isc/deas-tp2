@@ -14,6 +14,7 @@ namespace Repository
         }
 
         public DbSet<Metric1> Metrics1 { get; set; }
+        public DbSet<Zocalo> zocalo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {

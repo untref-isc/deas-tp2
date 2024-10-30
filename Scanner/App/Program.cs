@@ -31,16 +31,16 @@ namespace App
             LectoraArchivos lector = new LectoraArchivos();
             string directorio = @"c:\Ej\"; // Cambia esta ruta por la correcta
             
-            var files = FileScannerService.EscanearDirectorio(directorio); //Usar para estimar
+            var files = FileScannerService.EstimacionejecucionRutaDirectorio(directorio); //Usar para estimar
             // Agregar observadores
             lector.AnadirObservador(new UI());
-            lector.AnadirObservador(new Logger(100));
+            lector.AnadirObservador(new Logger((int)files.duracionTotal));
 
                         
             string[] archivos = Directory.GetFiles(directorio);
 
             // Leer y procesar cada archivo en el directorio
-            Console.WriteLine($"volumen total  {files.TamanoTotal}, cantidad {files.TotalArchivos}");
+            Console.WriteLine($"volumen total  {files.duracionTotal}, cantidad {files.totalArchivos}");
             foreach (var nombreArchivo in archivos)
             {
                 Archivo archivo = new Archivo(nombreArchivo);
@@ -49,6 +49,7 @@ namespace App
             }
 
             // Imprimir el historial de duraciones al final
+            
             lector.ImprimirHistorial();
         }
     }

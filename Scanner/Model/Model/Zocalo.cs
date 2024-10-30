@@ -3,6 +3,7 @@
     // Clase Zocalo, representando un rango de tamaño de archivos
     public class Zocalo
     {
+        public int Id { get; private set; }
         public int MinTamano { get; private set; }
         public int MaxTamano { get; private set; }
         public double PromedioDuracion { get; private set; }
@@ -11,11 +12,15 @@
 
         public Zocalo(int minTamano, int maxTamano)
         {
+            new Zocalo(minTamano, maxTamano, 0, 0, 0);
+        }
+        public Zocalo(int minTamano, int maxTamano, double promedioDuracion, double promedioTamañoArchivos, int cantidadArchivos)
+        {
             MinTamano = minTamano;
             MaxTamano = maxTamano;
-            PromedioDuracion = 0;
-            PromedioTamañoArchivos = 0;
-            CantidadArchivos = 0;
+            PromedioDuracion = promedioDuracion;
+            PromedioTamañoArchivos = promedioTamañoArchivos;
+            CantidadArchivos = cantidadArchivos;
         }
 
         public void ActualizarPromedio(long tamano,int duracion)

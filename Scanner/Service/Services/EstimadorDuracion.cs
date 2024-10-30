@@ -39,8 +39,8 @@ namespace Service
         }
 
         private Zocalo ObtenerZocaloPorTamano(int tamano)
-        {
-            return historialRepository.obtenerZocalo(tamano);
+        {       
+            return historialRepository.obtenerZocaloCercano(tamano);
         }
 
         public int ObtenerDuracionEstimada(int tamano)
@@ -50,7 +50,7 @@ namespace Service
             {
                 return ((int)zocalo.PromedioDuracion);
             }
-            return -1;
+            return 0;
         }
 
         // Método para imprimir el historial
