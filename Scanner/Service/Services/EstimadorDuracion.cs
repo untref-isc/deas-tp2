@@ -1,10 +1,8 @@
 ﻿using Model;
 using Repository;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 namespace Service
-
 {
-
     public class EstimadorDuracion
     {
         private HistorialRepository historialRepository;
@@ -16,17 +14,18 @@ namespace Service
 
         public void RegistrarDuracion(string nombreArchivo, int tamano, int duracion)
         {
-            var zocalo =  ObtenerZocaloPorTamano(tamano);
+            var zocalo = ObtenerZocaloPorTamano(tamano);
 
             // Si no hay zócalo, creamos uno nuevo.
             if (zocalo != null)
             {
                 zocalo.ActualizarPromedio(tamano, duracion);
             }
-            else {
+            else
+            {
                 zocalo = CrearZocalo(tamano);
                 zocalo.ActualizarPromedio(tamano, duracion);
-                _=historialRepository.AgregarEntrada(zocalo);
+                _ = historialRepository.AgregarEntrada(zocalo);
             }
         }
 
@@ -39,17 +38,17 @@ namespace Service
             return new Zocalo(tamañoInferior, tamañoSuperior);
         }
 
-        private  Zocalo ObtenerZocaloPorTamano(int tamano)
-        {       
-            return  historialRepository.obtenerZocalo(tamano);
-        }
-
-        private  Zocalo? ObtenerZocaloCercanoPorTamano(int tamano)
+        private Zocalo ObtenerZocaloPorTamano(int tamano)
         {
-            return  historialRepository.obtenerZocaloCercano(tamano);
+            return historialRepository.obtenerZocalo(tamano);
         }
 
-        public  double ObtenerDuracionEstimada(int tamano)
+        private Zocalo? ObtenerZocaloCercanoPorTamano(long tamano)
+        {
+            return historialRepository.obtenerZocaloCercano(tamano);
+        }
+
+        public double ObtenerDuracionEstimada(long tamano)
         {
             var zocalo = ObtenerZocaloCercanoPorTamano(tamano);
             if (zocalo != null && zocalo?.CantidadArchivos > 0)
@@ -65,6 +64,4 @@ namespace Service
             historialRepository.ObtenerTodosAsync().Result.ForEach(z => Console.WriteLine($"Zócalo: {z.MinTamano} - {z.MaxTamano} KB, Duración Promedio: {z.PromedioDuracion} segundos y tamano Promedio: {z.PromedioTamañoArchivos} kb"));
         }
     }
-
 }
-

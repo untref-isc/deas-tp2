@@ -27,12 +27,12 @@
             CantidadArchivos = cantidadArchivos;
         }
 
-        public void ActualizarPromedio(long tamano,int duracion)
+        public void ActualizarPromedio(long tamano, int duracion)
         {
             CantidadArchivos++;
-           // Calcular el nuevo promedio de duración
+            // Calcular el nuevo promedio de duración
             PromedioDuracion = ((PromedioDuracion * (CantidadArchivos - 1)) + duracion) / CantidadArchivos;
-           // Calcular el nuevo promedio de tamaño
+            // Calcular el nuevo promedio de tamaño
             PromedioTamañoArchivos = ((PromedioTamañoArchivos * (CantidadArchivos - 1)) + tamano) / CantidadArchivos;
         }
 
@@ -41,6 +41,4 @@
             return tamano >= MinTamano && tamano <= MaxTamano;
         }
     }
-
 }
-

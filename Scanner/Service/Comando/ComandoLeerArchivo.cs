@@ -17,7 +17,7 @@ namespace Service.Comando
         public void Ejecutar()
         {
             int tamanoArchivo = archivo.ObtenerTamanoEnKb();
-                        
+
             // Contar vocales en el nombre del archivo
             int vocales = archivo.ContarVocalesEnNombre();
 
@@ -38,10 +38,8 @@ namespace Service.Comando
             // Registro de la duración real de la tarea
             TimeSpan duracionReal = DateTime.Now - inicio;
             int duracionRealSegundos = ((int)duracionReal.TotalSeconds);
-            lector.NotificarObservadores(archivo.Nombre,duracionRealSegundos);
+            lector.NotificarObservadores(archivo.Nombre, duracionRealSegundos);
             lector.RegistrarDuracion(archivo.Nombre, tamanoArchivo, duracionRealSegundos); // Registrar en el lector
         }
     }
-
 }
-

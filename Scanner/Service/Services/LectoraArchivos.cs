@@ -1,7 +1,5 @@
-﻿using Model;
-using Service;
+﻿using Repository;
 using Service.Comando;
-using Repository;
 
 namespace Service
 {
@@ -20,7 +18,7 @@ namespace Service
         {
             foreach (var observador in observadores)
             {
-                observador.Actualizar(nombreArchivo,progreso);
+                observador.Actualizar(nombreArchivo, progreso);
             }
         }
 
@@ -29,7 +27,7 @@ namespace Service
             comando.Ejecutar();
         }
 
-         // Método para registrar la duración en el estimador
+        // Método para registrar la duración en el estimador
         public void RegistrarDuracion(string nombreArchivo, int tamano, int duracion)
         {
             estimador.RegistrarDuracion(nombreArchivo, tamano, duracion);
@@ -43,4 +41,3 @@ namespace Service
     }
 
 }
-

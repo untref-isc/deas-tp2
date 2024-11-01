@@ -1,9 +1,4 @@
 ﻿using Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Services
 {
@@ -28,15 +23,15 @@ namespace Service.Services
             // Cuenta archivos y suma tamaño
             foreach (var archivo in archivos)
             {
-                duracinTotal += estimador.ObtenerDuracionEstimada((archivo.Length >= int.MaxValue)?int.MaxValue-1:(int)archivo.Length);
+                duracinTotal += estimador.ObtenerDuracionEstimada(archivo.Length);
                 totalArchivos++;
             }
-            if (duracinTotal <=0) Console.WriteLine($"No hay datos suficientes para hacer una estimacion" );
+            if (duracinTotal <= 0) Console.WriteLine($"No hay datos suficientes para hacer una estimacion");
             return (totalArchivos, duracinTotal);
         }
 
         // Método recursivo para obtener todos los archivos incluyendo subdirectorios
-       static private FileInfo[] ObtenerArchivos(DirectoryInfo directorioInfo)
+        static private FileInfo[] ObtenerArchivos(DirectoryInfo directorioInfo)
         {
             try
             {

@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository
 {
@@ -20,24 +15,25 @@ namespace Repository
                 return await context.SaveChangesAsync();
             }
         }
-        public virtual Zocalo? obtenerZocalo(int tamano) {
+        public virtual Zocalo? obtenerZocalo(long tamano)
+        {
             using (ApplicationContext context = new ApplicationContext())
             {
-                return   context.zocalos.Where(z => tamano >= z.MinTamano && tamano <= z.MaxTamano).FirstOrDefault();
+                return context.zocalos.Where(z => tamano >= z.MinTamano && tamano <= z.MaxTamano).FirstOrDefault();
             }
         }
-        public virtual Zocalo obtenerZocaloCercano(int tamano)
+        public virtual Zocalo obtenerZocaloCercano(long tamano)
         {
-            var coincidenciaExacta =  obtenerZocalo(tamano);
+            var coincidenciaExacta = obtenerZocalo(tamano);
             if (coincidenciaExacta != null) return coincidenciaExacta;
             using (ApplicationContext context = new ApplicationContext())
             {
-                var masCercanoSuperior =   context.zocalos
+                var masCercanoSuperior = context.zocalos
                     .Where(z => z.MinTamano >= tamano)
                     .OrderBy(z => z.MinTamano)
                     .FirstOrDefault();
 
-                var masCercanoIngferior =  context.zocalos
+                var masCercanoIngferior = context.zocalos
                     .Where(z => z.MaxTamano <= tamano)
                     .OrderByDescending(z => z.MaxTamano)
                     .FirstOrDefault();
@@ -59,7 +55,6 @@ namespace Repository
         {
             return (valor1 + valor2) / 2;
         }
-
 
         public async Task<List<Zocalo>> ObtenerTodosAsync()
         {
