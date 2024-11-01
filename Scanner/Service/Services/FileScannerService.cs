@@ -10,7 +10,7 @@ namespace Service.Services
     public class FileScannerService
     {
         // Método que recibe un path y retorna el volumen (cantidad de archivos) y el tamaño total
-        static public (int totalArchivos, long duracionTotal) EstimacionejecucionRutaDirectorio(string path)
+        static public (int totalArchivos, double duracionTotal) EstimacionejecucionRutaDirectorio(string path)
         {
             var estimador = new EstimadorDuracion(HistorialRepositoryFactory.ObtenerHistorialRepository());
             if (!Directory.Exists(path))
@@ -19,7 +19,7 @@ namespace Service.Services
             }
 
             int totalArchivos = 0;
-            long duracinTotal = 0;
+            double duracinTotal = 0;
 
             // Escanea el directorio incluyendo los subdirectorios
             DirectoryInfo directorioInfo = new DirectoryInfo(path);

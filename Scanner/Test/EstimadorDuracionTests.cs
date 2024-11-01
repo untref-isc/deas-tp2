@@ -4,6 +4,7 @@ using Moq;
 using Repository;
 using Service;
 
+
 [TestClass]
 public class EstimadorDuracionTests
 {
@@ -22,11 +23,10 @@ public class EstimadorDuracionTests
     {
         
         _historialRepositoryMock.Setup(repo => repo.obtenerZocaloCercano(It.IsAny<int>())).Returns((Zocalo)null);
+        _historialRepositoryMock.Setup(repo => repo.obtenerZocalo(It.IsAny<int>())).Returns((Zocalo)null);
 
-        
         _estimadorDuracion.RegistrarDuracion("archivo.txt", 150, 10);
-
-       
+               
         _historialRepositoryMock.Verify(repo => repo.AgregarEntrada(It.IsAny<Zocalo>()), Times.Once);
     }
 

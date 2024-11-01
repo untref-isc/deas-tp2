@@ -30,7 +30,7 @@ namespace App
         {
             LectoraArchivos lector = new LectoraArchivos();
             string directorio = @"c:\Ej\"; // Cambia esta ruta por la correcta
-            
+            try { 
             var files = FileScannerService.EstimacionejecucionRutaDirectorio(directorio); //Usar para estimar
             // Agregar observadores
             lector.AnadirObservador(new UI());
@@ -51,6 +51,11 @@ namespace App
             // Imprimir el historial de duraciones al final
             
             lector.ImprimirHistorial();
+            }
+            catch (Exception ex)
+            {
+                Console.Write($"Error: {ex.Message}%");
+            }
         }
     }
 }

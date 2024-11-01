@@ -1,5 +1,6 @@
 ﻿using Model;
 using Repository;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace Service
 
 {
@@ -15,7 +16,7 @@ namespace Service
 
         public void RegistrarDuracion(string nombreArchivo, int tamano, int duracion)
         {
-            Zocalo zocalo = ObtenerZocaloPorTamano(tamano);
+            var zocalo =  ObtenerZocaloPorTamano(tamano);
 
             // Si no hay zócalo, creamos uno nuevo.
             if (zocalo != null)
@@ -25,7 +26,7 @@ namespace Service
             else {
                 zocalo = CrearZocalo(tamano);
                 zocalo.ActualizarPromedio(tamano, duracion);
-                historialRepository.AgregarEntrada(zocalo);
+                _=historialRepository.AgregarEntrada(zocalo);
             }
         }
 
@@ -38,22 +39,22 @@ namespace Service
             return new Zocalo(tamañoInferior, tamañoSuperior);
         }
 
-        private Zocalo ObtenerZocaloPorTamano(int tamano)
+        private  Zocalo ObtenerZocaloPorTamano(int tamano)
         {       
-            return historialRepository.obtenerZocalo(tamano);
+            return  historialRepository.obtenerZocalo(tamano);
         }
 
-        private Zocalo ObtenerZocaloCercanoPorTamano(int tamano)
+        private  Zocalo? ObtenerZocaloCercanoPorTamano(int tamano)
         {
-            return historialRepository.obtenerZocaloCercano(tamano);
+            return  historialRepository.obtenerZocaloCercano(tamano);
         }
 
-        public int ObtenerDuracionEstimada(int tamano)
+        public  double ObtenerDuracionEstimada(int tamano)
         {
-            Zocalo zocalo = ObtenerZocaloCercanoPorTamano(tamano);
-            if (zocalo != null && zocalo.CantidadArchivos > 0)
+            var zocalo = ObtenerZocaloCercanoPorTamano(tamano);
+            if (zocalo != null && zocalo?.CantidadArchivos > 0)
             {
-                return ((int)zocalo.PromedioDuracion);
+                return (Math.Round(zocalo.PromedioDuracion, 2));
             }
             return 0;
         }
@@ -61,7 +62,7 @@ namespace Service
         // Método para imprimir el historial
         public void ImprimirHistorial()
         {
-            historialRepository.ImprimirHistorial();
+            historialRepository.ObtenerTodosAsync().Result.ForEach(z => Console.WriteLine($"Zócalo: {z.MinTamano} - {z.MaxTamano} KB, Duración Promedio: {z.PromedioDuracion} segundos y tamano Promedio: {z.PromedioTamañoArchivos} kb"));
         }
     }
 

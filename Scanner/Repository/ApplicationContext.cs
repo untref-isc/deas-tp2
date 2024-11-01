@@ -13,8 +13,8 @@ namespace Repository
             this._path = Path.Join(path, "blogging.db");
         }
 
-        public DbSet<Metric1> Metrics1 { get; set; }
-        public DbSet<Zocalo> zocalo { get; set; }
+      //  public DbSet<Metric1> Metrics1 { get; set; }
+        public DbSet<Zocalo> zocalos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
