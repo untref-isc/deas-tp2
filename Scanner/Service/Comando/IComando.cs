@@ -1,10 +1,8 @@
 ﻿namespace Service.Comando
 {
-    // Interfaz Comando
     public interface IComando
     {
-        void Ejecutar();
+        Task Ejecutar();
+        void AnadirObservador(IObservador observador);
     }
-
 }
-

@@ -9,37 +9,37 @@ using Service;
 public class EstimadorDuracionTests
 {
     private Mock<HistorialRepository> _historialRepositoryMock;
-    private EstimadorDuracion _estimadorDuracion;
+    private EstimadorDuracionService _estimadorDuracion;
 
     [TestInitialize]
     public void Setup()
     {
         _historialRepositoryMock = new Mock<HistorialRepository>();
-        _estimadorDuracion = new EstimadorDuracion(_historialRepositoryMock.Object);
+        _estimadorDuracion = new EstimadorDuracionService(_historialRepositoryMock.Object);
     }
 
     [TestMethod]
     public void RegistrarDuracion_CuandoNoExisteZocalo_LlamaAgregarEntrada()
     {
-        
+
         _historialRepositoryMock.Setup(repo => repo.obtenerZocaloCercano(It.IsAny<int>())).Returns((Zocalo)null);
         _historialRepositoryMock.Setup(repo => repo.obtenerZocalo(It.IsAny<int>())).Returns((Zocalo)null);
 
         _estimadorDuracion.RegistrarDuracion("archivo.txt", 150, 10);
-               
-        _historialRepositoryMock.Verify(repo => repo.AgregarEntrada(It.IsAny<Zocalo>()), Times.Once);
+
+        _historialRepositoryMock.Verify(repo => repo.Agregar(It.IsAny<Zocalo>()), Times.Once);
     }
 
     [TestMethod]
-    public void ObtenerDuracionEstimada_CuandoNoExisteZocalo_RetornaCero()
+    public async Task ObtenerDuracionEstimada_CuandoNoExisteZocalo_RetornaCero()
     {
-        
+
         _historialRepositoryMock.Setup(repo => repo.obtenerZocaloCercano(It.IsAny<int>())).Returns((Zocalo)null);
 
-        
-        var duracionEstimada = _estimadorDuracion.ObtenerDuracionEstimada(150);
 
-       
+        var duracionEstimada = await _estimadorDuracion.ObtenerDuracionEstimada(150);
+
+
         Assert.AreEqual(0, duracionEstimada);
     }
 }

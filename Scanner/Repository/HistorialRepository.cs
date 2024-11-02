@@ -5,62 +5,76 @@ namespace Repository
 {
     public class HistorialRepository
     {
+        private const int TOLERANCIA_TAMAÑO_ZOCALO = 100;
 
-        // Método para agregar entrada al historial
-        public virtual async Task<int> AgregarEntrada(Zocalo zocalo)
+        public async Task BorrarDatos()
         {
             using (ApplicationContext context = new ApplicationContext())
             {
-                context.zocalos.Add(zocalo);
+                await context.Zocalos.ExecuteDeleteAsync();
+            }
+        }
+
+        public virtual async Task<int> Actualizar(Zocalo zocalo)
+        {
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                context.Zocalos.Update(zocalo);
                 return await context.SaveChangesAsync();
             }
         }
-        public virtual Zocalo? obtenerZocalo(long tamano)
+
+        public virtual async Task<int> Agregar(Zocalo zocalo)
         {
             using (ApplicationContext context = new ApplicationContext())
             {
-                return context.zocalos.Where(z => tamano >= z.MinTamano && tamano <= z.MaxTamano).FirstOrDefault();
+                context.Zocalos.Add(zocalo);
+                return await context.SaveChangesAsync();
             }
         }
-        public virtual Zocalo obtenerZocaloCercano(long tamano)
+
+
+        public virtual async Task<int> Agregar(List<Zocalo> zocalos)
         {
-            var coincidenciaExacta = obtenerZocalo(tamano);
-            if (coincidenciaExacta != null) return coincidenciaExacta;
             using (ApplicationContext context = new ApplicationContext())
             {
-                var masCercanoSuperior = context.zocalos
-                    .Where(z => z.MinTamano >= tamano)
-                    .OrderBy(z => z.MinTamano)
-                    .FirstOrDefault();
-
-                var masCercanoIngferior = context.zocalos
-                    .Where(z => z.MaxTamano <= tamano)
-                    .OrderByDescending(z => z.MaxTamano)
-                    .FirstOrDefault();
-
-                if (masCercanoIngferior != null && masCercanoSuperior != null)
-                    return new Zocalo(masCercanoIngferior.MaxTamano,
-                        masCercanoSuperior.MinTamano,
-                        promediar(masCercanoIngferior.PromedioDuracion, masCercanoSuperior.PromedioDuracion),
-                        promediar(masCercanoIngferior.PromedioTamañoArchivos,
-                        masCercanoSuperior.PromedioTamañoArchivos),
-                        1);
-
-                if (masCercanoSuperior != null) return masCercanoSuperior;
-
-                return masCercanoIngferior;
+                await context.Zocalos.AddRangeAsync(zocalos);
+                return await context.SaveChangesAsync();
             }
         }
-        private double promediar(double valor1, double valor2)
-        {
-            return (valor1 + valor2) / 2;
-        }
 
-        public async Task<List<Zocalo>> ObtenerTodosAsync()
+        public async Task<bool> Existe(Zocalo zocalo)
         {
             using (ApplicationContext context = new ApplicationContext())
             {
-                return await context.zocalos.ToListAsync();
+                return await context.Zocalos.AnyAsync(x => x.PromedioTamañoArchivos == zocalo.PromedioTamañoArchivos);
+            }
+        }
+
+        public virtual Zocalo? obtenerZocalo(long tamanoArchivo)
+        {
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                return context.Zocalos.Where(z => tamanoArchivo >= z.MinTamano && tamanoArchivo <= z.MaxTamano).FirstOrDefault();
+            }
+        }
+
+        public Zocalo? obtenerZocaloCercano(long tamanoArchivo)
+        {
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                return context.Zocalos
+                    .Where(x => x.MinTamano >= tamanoArchivo)
+                    .Where(x => x.MaxTamano < tamanoArchivo)
+                    .FirstOrDefault();
+            }
+        }
+
+        public async Task<List<Zocalo>> ObtenerTodos()
+        {
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                return await context.Zocalos.ToListAsync();
             }
         }
     }

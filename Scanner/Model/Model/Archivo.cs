@@ -12,7 +12,7 @@
         public int ObtenerTamanoEnKb()
         {
             FileInfo info = new FileInfo(Nombre);
-            return (int)(info.Length / 1024); // Retorna el tamaño en KB
+            return (int)(info.Length / 1024);
         }
 
         // Método para contar vocales en el nombre del archivo

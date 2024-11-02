@@ -3,12 +3,31 @@
     // Clase Zocalo, representando un rango de tamaño de archivos
     public class Zocalo
     {
-        public int Id { get; private set; }
+        public long Id { get; set; }
         public int MinTamano { get; private set; }
         public int MaxTamano { get; private set; }
-        public double PromedioDuracion { get; private set; }
-        public double PromedioTamañoArchivos { get; private set; }
-        public int CantidadArchivos { get; private set; }
+        public double PromedioDuracion { get; set; }
+        public double PromedioTamañoArchivos { get; set; } // Cambiar nombre a ZocaloIndice o similar
+        public int CantidadArchivos { get; set; }
+
+        public Zocalo()
+        {
+
+        }
+
+        public void CalcularPromedio(long duracionTotalEnMilisegundos)
+        {
+            if (this.CantidadArchivos != 0)
+            {
+                this.PromedioDuracion = duracionTotalEnMilisegundos / this.CantidadArchivos;
+            }
+        }
+
+        public Zocalo(long tamañoArchivo)
+        {
+            //this.MinTamano = (tamañoArchivo / 100) * 100; 
+            //this.MaxTamano = tamañoInferior + 100; 
+        }
 
         public Zocalo(int minTamano, int maxTamano)
         {
