@@ -29,17 +29,13 @@ namespace Service.Comando
 
             this.archivos = DirectorioRepository.ObtenerArchivos(directorio);
 
-            double duracionTotal = -33;
+            double duracionTotal = 0;
 
             this.observadores.ForEach(observador => observador.InformarInicio("Iniciando proceso de estimación"));
 
             if (await this.estimadorDuracionService.HayEstimacionesExistentes())
             {
                 duracionTotal = await this.EstimarUsandoHistorial();
-            }
-            else
-            {
-                //await this.EjecutarPorPrimeraVez();
             }
 
             if (duracionTotal == 0)

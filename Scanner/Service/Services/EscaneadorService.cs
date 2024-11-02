@@ -11,9 +11,9 @@
             File.ReadAllBytes(archivo.FullName);
             File.ReadAllBytes(archivo.FullName);
             File.ReadAllBytes(archivo.FullName);
-            return DateTime.Now - inicio;
+            return (DateTime.Now - inicio) * CoeficienteParaIndicarCuantoTardaEnLeerUnArchivo;
         }
 
-        public static int CoeficienteParaIndicarCuantoTardaEnLeerUnArchivo { get; set; }
+        public static double CoeficienteParaIndicarCuantoTardaEnLeerUnArchivo { get; set; }
     }
 }

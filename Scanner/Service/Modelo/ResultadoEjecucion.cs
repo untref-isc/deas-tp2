@@ -19,7 +19,7 @@ namespace Service.Modelo
             this.items.Add(new ResultadoEjecucionItem(tamañoArchivo, (int)duracionTotal.TotalMilliseconds));
         }
 
-        internal List<Zocalo> CalcularMetricas()
+        internal List<Zocalo> CalcularZocalos()
         {
             List<Zocalo> zocalos = new List<Zocalo>();
 

@@ -13,7 +13,7 @@ namespace App
 
         private static async Task ShowAsync()
         {
-            EscaneadorService.CoeficienteParaIndicarCuantoTardaEnLeerUnArchivo = 100;
+            EscaneadorService.CoeficienteParaIndicarCuantoTardaEnLeerUnArchivo = 1;
             LectorArchivos lector = new LectorArchivos();
             string directorio = @"C:\prueba-untref\"; // Cambia esta ruta por la correcta
             try

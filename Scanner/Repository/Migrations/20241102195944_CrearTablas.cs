@@ -5,22 +5,24 @@
 namespace Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class CrearTablas : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Metrics1",
+                name: "Zocalos",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    PromedioDuracion = table.Column<double>(type: "REAL", nullable: false),
+                    PromedioTamañoArchivos = table.Column<double>(type: "REAL", nullable: false),
+                    CantidadArchivos = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Metrics1", x => x.Id);
+                    table.PrimaryKey("PK_Zocalos", x => x.Id);
                 });
         }
 
@@ -28,7 +30,7 @@ namespace Repository.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Metrics1");
+                name: "Zocalos");
         }
     }
 }

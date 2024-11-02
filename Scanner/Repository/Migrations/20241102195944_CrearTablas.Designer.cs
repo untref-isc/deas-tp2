@@ -10,8 +10,8 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20241101044707_createZocalo")]
-    partial class createZocalo
+    [Migration("20241102195944_CrearTablas")]
+    partial class CrearTablas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,12 +28,6 @@ namespace Repository.Migrations
                     b.Property<int>("CantidadArchivos")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("MaxTamano")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MinTamano")
-                        .HasColumnType("INTEGER");
-
                     b.Property<double>("PromedioDuracion")
                         .HasColumnType("REAL");
 
@@ -42,7 +36,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("zocalos");
+                    b.ToTable("Zocalos");
                 });
 #pragma warning restore 612, 618
         }

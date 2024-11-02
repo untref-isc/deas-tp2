@@ -25,12 +25,6 @@ namespace Repository.Migrations
                     b.Property<int>("CantidadArchivos")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("MaxTamano")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MinTamano")
-                        .HasColumnType("INTEGER");
-
                     b.Property<double>("PromedioDuracion")
                         .HasColumnType("REAL");
 
@@ -39,7 +33,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("zocalos", (string)null);
+                    b.ToTable("Zocalos");
                 });
 #pragma warning restore 612, 618
         }

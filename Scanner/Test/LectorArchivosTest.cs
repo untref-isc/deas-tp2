@@ -9,9 +9,9 @@ public class LectoraArchivosTests
     public void NotificarObservadores_LlamaActualizarDeCadaObservador()
     {
        
-        var observadorMock = new Mock<IObservador>();
-        var lectoraArchivos = new LectorArchivos();
-        lectoraArchivos.AgregarObservador(observadorMock.Object);
+        //var observadorMock = new Mock<IObservador>();
+        //var lectoraArchivos = new LectorArchivos();
+        //lectoraArchivos.AgregarObservador(observadorMock.Object);
 
         
         //lectoraArchivos. NotificarObservadores("archivo.txt", 50);

@@ -5,12 +5,12 @@ namespace App
     // Implementación de la UI como observador
     public class UI : IObservador
     {
-        private const int cantidadDeMensajesQueAgrupo = 100;
+        private const int cantidadDeMensajesQueAgrupo = 200;
         private int acumulador;
 
         public void InformarFin(string mensaje)
         {
-            Task.Run(() => Console.WriteLine(mensaje));
+            Console.WriteLine(mensaje);
         }
 
         public void InformarInicio(string mensaje)
