@@ -10,15 +10,13 @@ namespace App
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Vas a imprimir algo?");
-
            string ruta;
             if (!IntentaObtenerRuta(args, out ruta) )
                 return;
-            Console.Write($"{ruta}",ruta);
+         
             try
             {
-                _ = ShowAsync(ruta);
+                _=ShowAsync(ruta);
             }
             catch (Exception ex)
             {
@@ -37,7 +35,7 @@ namespace App
             try
             {
                 lector.AgregarObservador(new UI());
-                lector.AgregarObservador(new Logger());
+            
                 await lector.EjecutarComando(new ComandoEstimarDirectorio(directorio));
                 await lector.EjecutarComando(new ComandoEscanearDirectorio(directorio));
             }

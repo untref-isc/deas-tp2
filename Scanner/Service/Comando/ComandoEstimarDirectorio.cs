@@ -16,6 +16,7 @@ namespace Service.Comando
 
         public ComandoEstimarDirectorio(string directorio)
         {
+            this.archivos = Array.Empty<FileInfo>();
             this.directorio = directorio;
             this.observadores = new List<IObservador>();
             this.escaneadorService = new EscaneadorService();
