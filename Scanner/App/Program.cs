@@ -1,6 +1,7 @@
 ﻿using Service;
 using Service.Comando;
 using Service.Services;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace App
@@ -11,7 +12,8 @@ namespace App
         {
 
             string ruta;
-            if (!IntentaObtenerRuta(args, out ruta));
+            if (!IntentaObtenerRuta(args, out ruta) )
+                return;
 
             try
             {
@@ -22,35 +24,10 @@ namespace App
                 Console.Write($"Error: {ex.Message}%");
             }
 
-            static bool  IntentaObtenerRuta(string[] args, out string ruta)
-            {
-                ruta = String.Empty;
-                if (args.Length == 0)
-                {
-                    Console.WriteLine("Por favor, ingrese una ruta como parámetro.");
-                    return false;
-                }
-                var rutaCandidata = args[0];
-                string patronRuta = @"^[a-zA-Z]:\\(?:[^\\\/:*?""<>|\r\n]+\\)*[^\\\/:*?""<>|\r\n]*$";
-                Regex regex = new Regex(patronRuta);
-
-                if (!regex.IsMatch(rutaCandidata))
-                {
-                    Console.WriteLine("La ruta '{rutaCandidata}' tiene un formato inválido.", rutaCandidata);
-                    return false;
-                }
-
-                if (Directory.Exists(rutaCandidata))
-                {
-                    Console.WriteLine("La ruta '{rutaCandidata}' es un directorio válido.", rutaCandidata);
-                    return false;
-                }
-                ruta = rutaCandidata;
-                return true;
-            }
-
+         
         }
 
+       
         private static async Task ShowAsync(string directorio)
         {
             EscaneadorService.CoeficienteParaIndicarCuantoTardaEnLeerUnArchivo = 1;
@@ -68,5 +45,28 @@ namespace App
                 Console.Write($"Error: {ex.Message}%");
             }
         }
+
+        static bool IntentaObtenerRuta(string[] args, out string ruta)
+        {
+            ruta = String.Empty;
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Por favor, ingrese una ruta como parámetro.");
+                return false;
+            }
+            var rutaCandidata = args[0];
+            string patronRuta = @"^[a-zA-Z]:\\(?:[^\\\/:*?""<>|\r\n]+\\)*[^\\\/:*?""<>|\r\n]*$";
+            Regex regex = new Regex(patronRuta);
+
+            if (!regex.IsMatch(rutaCandidata))
+            {
+                Console.WriteLine("La ruta '{rutaCandidata}' tiene un formato inválido.", rutaCandidata);
+                return false;
+            }
+
+            ruta = rutaCandidata;
+            return true;
+        }
+
     }
 }
