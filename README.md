@@ -86,13 +86,11 @@ En la lista debe figurar "8.0.403 [C:\PROGRAM FILES\DOTNET\sdk]" o version poste
 
 Instalar Herramientas:
 dotnet add package Microsoft.EntityFrameworkCore.Tools 
-Ejecutar el comando para que genere las tablas: Update-Database -StartUpProject App -Project Repository -Context ApplicationContext
-Si falla, parados en .\deas-tp2\scanner el siguiente comando
+Desde el directorio Scanner, ejecutar el comando siguiente para que genere la base de datos:
  dotnet ef Database Update --startup-project App --project Repository --context ApplicationContext
 
-Este comando se usa para crear nuevas migrations frentea cambios en el modelo de bases de datos:
-Add-Migration <Migrationname> -StartUpProject App -Project Repository -Context ApplicationContext
+Para poder correr la aplicación, desde el mismo directorio,ejecutar el siguiente commmando:
+     dotnet run <Directorioa_a_Escanear> --project App
 
-El nombre de cada migration, debe ser único. 
-Cada nueva entidad que se agrege al modelo, debe sumarse también a la clase ApplicationContext como una nueva property:
- public DbSet<NewEntity> NewEntity { get; set; }
+Directorioa_a_Escanear debe contener la ruta completa del directorio que será escaneado por la applicacion en windows, 
+ej: c:\prueba-untref.

@@ -26,6 +26,8 @@ namespace Service.Comando
         public async Task Ejecutar()
         {
             DirectorioRepository.AsegurarseDeQueExisteDirectorio(this.directorio);
+            DirectorioRepository.AsegurarseDeQueDirectorioTieneContenido(this.directorio);
+    
             var estimador = new EstimadorDuracionService(HistorialRepositoryFactory.ObtenerHistorialRepository());
 
             this.archivos = DirectorioRepository.ObtenerArchivos(directorio);

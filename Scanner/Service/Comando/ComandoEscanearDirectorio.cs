@@ -23,6 +23,9 @@ namespace Service.Comando
         public async Task Ejecutar()
         {
             DirectorioRepository.AsegurarseDeQueExisteDirectorio(this.directorio);
+            DirectorioRepository.AsegurarseDeQueDirectorioTieneContenido(this.directorio);
+            
+
             ResultadoEjecucion resultado = new ResultadoEjecucion();
             FileInfo[] archivos = DirectorioRepository.ObtenerArchivos(directorio);
             foreach (FileInfo archivo in archivos)

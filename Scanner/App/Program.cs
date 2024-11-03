@@ -41,7 +41,7 @@ namespace App
             }
             catch (Exception ex)
             {
-                Console.Write($"Error: {ex.Message}%");
+                Console.Write($"Error: {ex.Message}");
             }
         }
 
@@ -54,7 +54,7 @@ namespace App
                 return false;
             }
             var rutaCandidata = args[0];
-            Console.WriteLine("se obtuvo ruta {0}", rutaCandidata);
+
            string patronRuta = @"^[a-zA-Z]:(\\[a-zA-Z0-9._-]+)*\\?$";
             Regex regex = new Regex(patronRuta);
 

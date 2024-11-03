@@ -39,5 +39,10 @@ namespace Repository
             return true;
         }
 
+        public static void AsegurarseDeQueDirectorioTieneContenido(string directorio)
+        {
+            if (esRutaVacia(directorio))
+                throw new InvalidOperationException($"El directorio '{directorio}' está vacio.");
+        }
     }
 }
