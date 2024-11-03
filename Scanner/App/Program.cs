@@ -10,18 +10,19 @@ namespace App
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Vas a imprimir algo?");
 
-            string ruta;
+           string ruta;
             if (!IntentaObtenerRuta(args, out ruta) )
                 return;
-
+            Console.Write($"{ruta}",ruta);
             try
             {
                 _ = ShowAsync(ruta);
             }
             catch (Exception ex)
             {
-                Console.Write($"Error: {ex.Message}%");
+                Console.Write($"Error: {ex.Message}");
             }
 
          
@@ -55,12 +56,13 @@ namespace App
                 return false;
             }
             var rutaCandidata = args[0];
-            string patronRuta = @"^[a-zA-Z]:\\(?:[^\\\/:*?""<>|\r\n]+\\)*[^\\\/:*?""<>|\r\n]*$";
+            Console.WriteLine("se obtuvo ruta {0}", rutaCandidata);
+           string patronRuta = @"^[a-zA-Z]:(\\[a-zA-Z0-9._-]+)*\\?$";
             Regex regex = new Regex(patronRuta);
 
             if (!regex.IsMatch(rutaCandidata))
             {
-                Console.WriteLine("La ruta '{rutaCandidata}' tiene un formato inválido.", rutaCandidata);
+                Console.WriteLine("La ruta '{0}' tiene un formato inválido.", rutaCandidata);
                 return false;
             }
 
