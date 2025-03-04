@@ -3,6 +3,10 @@
     "App": {
       "commandName": "Project",
       "commandLineArgs": "C:\\prueba-untref\\"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "commandLineArgs": "/home/"
     }
   }
 }

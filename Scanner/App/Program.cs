@@ -2,6 +2,7 @@
 using Service.Comando;
 using Service.Services;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace App
@@ -22,16 +23,14 @@ namespace App
             {
                 Console.Write($"Error: {ex.Message}");
             }
-
          
         }
-
        
         private static async Task ShowAsync(string directorio)
         {
             EscaneadorService.CoeficienteParaIndicarCuantoTardaEnLeerUnArchivo = 1;
             LectorArchivos lector = new LectorArchivos();
-
+            
             try
             {
                 lector.AgregarObservador(new UI());
@@ -54,19 +53,35 @@ namespace App
                 return false;
             }
             var rutaCandidata = args[0];
-
-           string patronRuta = @"^[a-zA-Z]:(\\[a-zA-Z0-9._-]+)*\\?$";
-            Regex regex = new Regex(patronRuta);
-
-            if (!regex.IsMatch(rutaCandidata))
+            try
             {
+                string patronRuta = ObtenerRegexPorSistemaOperativo();
+
+                Regex regex = new Regex(patronRuta);
+
+                if (!regex.IsMatch(rutaCandidata))
+                {
+                    Console.WriteLine("La ruta '{0}' tiene un formato inválido.", rutaCandidata);
+                    return false;
+                }
+
+                ruta = rutaCandidata;
+            }
+            catch (Exception e) {
+
                 Console.WriteLine("La ruta '{0}' tiene un formato inválido.", rutaCandidata);
                 return false;
             }
 
-            ruta = rutaCandidata;
             return true;
         }
 
+        private static string ObtenerRegexPorSistemaOperativo()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return @"^[a-zA-Z]:(\\[a-zA-Z0-9._-]+)*\\?$";
+                
+            return @"^/(?:[^/]+\/)*[^/]+$";
+        }
     }
 }
