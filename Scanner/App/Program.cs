@@ -67,7 +67,7 @@ namespace App
 
                 ruta = rutaCandidata;
             }
-            catch (Exception e) {
+            catch (Exception) {
 
                 Console.WriteLine("La ruta '{0}' tiene un formato inválido.", rutaCandidata);
                 return false;

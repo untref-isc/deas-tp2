@@ -11,7 +11,11 @@ namespace Repository
         {
             using (ApplicationContext context = new ApplicationContext())
             {
-                await context.Zocalos.ExecuteDeleteAsync();
+                //await context.Zocalos.ExecuteDeleteAsync();
+                var zocalos = await context.Zocalos.ToListAsync();
+                context.Zocalos.RemoveRange(zocalos);
+                await context.SaveChangesAsync();
+
             }
         }
 
